@@ -16,6 +16,8 @@ BORDER = pygame.Rect(WIDTH//2 - 5, 0, 10, HEIGHT)
 
 BULLET_HIT_SOUND = pygame.mixer.Sound('Assets/Grenade+1.mp3')
 BULLET_FIRE_SOUND = pygame.mixer.Sound('Assets/Gun+Silencer.mp3')
+BACKGROUND_MUSIC = pygame.mixer.Sound('Assets/background-music.mp3')
+WIN_SOUND = pygame.mixer.Sound('Assets/win-sound.mp3')
 
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
 WINNER_FONT = pygame.font.SysFont('comicsans', 100)
@@ -115,6 +117,7 @@ def draw_winner(text):
 
 
 def main():
+    BACKGROUND_MUSIC.play()
     red = pygame.Rect(700, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
@@ -157,9 +160,13 @@ def main():
         winner_text = ""
         if red_health <= 0:
             winner_text = "Yellow Wins!"
+            BACKGROUND_MUSIC.stop()
+            WIN_SOUND.play()
 
         if yellow_health <= 0:
             winner_text = "Red Wins!"
+            BACKGROUND_MUSIC.stop()
+            WIN_SOUND.play()
 
         if winner_text != "":
             draw_winner(winner_text)
